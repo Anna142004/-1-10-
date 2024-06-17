@@ -1,1 +1,318 @@
+1) c++
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+class Complex {
+public:
+  double real;
+  double imag;
+
+  Complex(double real, double imag) {
+    this->real = real;
+    this->imag = imag;
+  }
+
+  Complex operator+(const Complex& other) {
+    return Complex(real + other.real, imag + other.imag);
+  }
+
+  Complex operator-(const Complex& other) {
+    return Complex(real - other.real, imag - other.imag);
+  }
+
+  Complex operator*(const Complex& other) {
+    return Complex(real * other.real - imag * other.imag,
+                   real * other.imag + imag * other.real);
+  }
+
+  Complex operator/(const Complex& other) {
+    double denominator = other.real * other.real + other.imag * other.imag;
+    return Complex((real * other.real + imag * other.imag) / denominator,
+                   (imag * other.real - real * other.imag) / denominator);
+  }
+
+  friend ostream& operator<<(ostream& os, const Complex& c) {
+    os << c.real << " + " << c.imag << "i";
+    return os;
+  }
+};
+
+int main() {
+  Complex c1(2, 1);
+  Complex c2(2, -2);
+
+  Complex sum = c1 + c2;
+  Complex difference = c1 - c2;
+  Complex product = c1 * c2;
+  Complex quotient = c1 / c2;
+
+  cout << "Сумма: " << sum << endl;
+  cout << "Разность: " << difference << endl;
+  cout << "Произведение: " << product << endl;
+  cout << "Деление: " << quotient << endl;
+
+  return 0;
+}
+
+python
+
+import cmath
+
+
+def complex_sum(a, b):
+    """
+    Calculate the sum of two complex numbers.
+
+    :param a: The first complex number.
+    :param b: The second complex number.
+    :return: The sum of the two complex numbers.
+    """
+    return a + b
+
+
+def complex_difference(a, b):
+    """
+    Calculate the difference of two complex numbers.
+
+    :param a: The first complex number.
+    :param b: The second complex number.
+    :return: The difference of the two complex numbers.
+    """
+    return a - b
+
+
+def complex_product(a, b):
+    """
+    Calculate the product of two complex numbers.
+
+    :param a: The first complex number.
+    :param b: The second complex number.
+    :return: The product of the two complex numbers.
+    """
+    return a * b
+
+
+def complex_division(a, b):
+    """
+    Calculate the quotient of two complex numbers.
+
+    :param a: The numerator (the first complex number).
+    :param b: The denominator (the second complex number).
+    :return: The quotient of the two complex numbers.
+    """
+    return a / b
+
+
+def complex_power(a, power):
+    """
+    Calculate the power of a complex number.
+
+    :param a: The base complex number.
+    :param power: The exponent.
+    :return: The result of raising the complex number to the specified power.
+    """
+    return cmath.polar(a)[0] ** power * cmath.rect(1, cmath.polar(a)[1] * power)
+
+
+def complex_fourth_power(a):
+    """
+    Calculate the fourth power of a complex number.
+
+    :param a: The complex number.
+    :return: The fourth power of the complex number.
+    """
+    return complex_power(a, 4)
+
+
+def complex_cube_root(a):
+    """
+    Calculate the cube root of a complex number.
+
+    :param a: The complex number.
+    :return: The cube root of the complex number.
+    """
+    return complex_power(a, 1.0 / 3.0)
+
+
+if name == "main":
+    # Define two complex numbers
+    a = complex(2, 1)
+    b = complex(2, -2)
+
+    # Calculate the sum, difference, product, and quotient of the complex numbers
+    sum = complex_sum(a, b)
+    difference = complex_difference(a, b)
+    product = complex_product(a, b)
+    quotient = complex_division(a, b)
+
+    # Print the results
+    print("Сумма:", sum)
+    print("Разность:", difference)
+    print("Произведение:", product)
+    print("Деление:", quotient)
+
+    # Calculate the fourth power and cube root of the complex number 'a'
+    fourth_power = complex_fourth_power(a)
+    cube_root = complex_cube_root(a)
+
+    # Print the results
+    print("Четвертая степень:", fourth_power)
+    print
+
+2) c++ 
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+double f(double x) {
+  return x * exp(x) - 1;
+}
+
+double dichotomic_search(double a, double b, double epsilon) {
+  double x_mid;
+
+  while (b - a > epsilon) {
+    x_mid = (a + b) / 2;
+
+    if (f(x_mid) > 0) {
+      b = x_mid;
+    } else {
+      a = x_mid;
+    }
+  }
+
+  return (a + b) / 2;
+}
+
+int main() {
+  double a = 0;
+  double b = 2;
+  double epsilon = 1e-6;
+
+  double root = dichotomic_search(a, b, epsilon);
+
+  cout << "Корень уравнения: " << root << endl;
+
+  return 0;
+}
+
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+double f(double x) {
+  return x * exp(x) - 1;
+}
+
+double iteration_method(double x0, double epsilon) {
+  double x_n = x0;
+
+  while (abs(f(x_n)) > epsilon) {
+    x_n = x_n - f(x_n) / f'(x_n);
+  }
+
+  return x_n;
+}
+
+int main() {
+  double x0 = 1;
+  double epsilon = 1e-6;
+
+  double root = iteration_method(x0, epsilon);
+
+  cout << "Корень уравнения: " << root << endl;
+
+  return 0;
+}
+
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+double f(double x) {
+  return x * exp(x) - 1;
+}
+
+double chord_method(double x0, double x1, double epsilon) {
+  double x_n;
+
+  while (abs(x1 - x0) > epsilon) {
+    x_n = x1 - (f(x1) * (x1 - x0)) / (f(x1) - f(x0));
+    x0 = x1;
+    x1 = x_n;
+  }
+
+  return x_n;
+}
+
+int main() {
+  double x0 = 0;
+  double x1 = 2;
+  double epsilon = 1e-6;
+
+  double root = chord_method(x0, x1, epsilon);
+
+  cout << "Корень уравнения: " << root << endl;
+
+  return 0;
+)
+
+python 
+
+import math
+
+def f(x):
+    return x**3 - x - 1
+
+def dichotomy_method(a, b, eps):
+    while abs(b - a) > eps:
+        mid = (a + b) / 2
+        if f(mid) * f(a) < 0:
+            b = mid
+        else:
+            a = mid
+    return mid
+
+def iteration_method(x0, eps):
+    while abs(f(x0)) > eps:
+        x1 = x0 - f(x0) / f'(x0)
+        x0 = x1
+    return x1
+
+def chord_method(x0, x1, eps):
+    while abs(f(x1)) > eps:
+        x2 = x1 - (f(x1) * (x1 - x0)) / (f(x1) - f(x0))
+        x0 = x1
+        x1 = x2
+    return x2
+
+def newton_method(x0, eps):
+    while abs(f(x0)) > eps:
+        x1 = x0 - f(x0) / f'(x0)
+        x0 = x1
+    return x1
+
+# Точность
+eps = 1e-6
+
+# Корень методом дихотомии
+x_dichotomy = dichotomy_method(0, 2, eps)
+print("Корень методом дихотомии:", x_dichotomy)
+
+# Корень методом итераций
+x_iteration = iteration_method(1, eps)
+print("Корень методом итераций:", x_iteration)
+
+# Корень методом хорд
+x_chord = chord_method(0, 2, eps)
+print("Корень методом хорд:", x_chord)
+
+# Корень методом Ньютона
+x_newton = newton_method(1, eps)
+print("Корень методом Ньютона:", x_newton)
 
